@@ -32,7 +32,9 @@
             classification: Proceedings of the European conference of the prognostics and health management society,
             2016[C].
 
-    Function Introduction:
+    Note:
+        considering some bearing has both inner and outer fault, the corresponding (one-hot) label
+        such as (0, 1, 0, 0) is soft as (0, 0.8, 0.2, 0) [or (0, 0.2. 0.8, 0)] according to the faulty size
 
 """
 
@@ -223,9 +225,11 @@ class PaderbornBearing(object):
 
             # considering the combination of inner and outer fault
             if "Inner_Outer" in file:
-                sample_labels[:, :, 2] = 0.7
-            if "Outer_Inner" in file:
                 sample_labels[:, :, 1] = 0.8
+                sample_labels[:, :, 2] = 0.2
+            if "Outer_Inner" in file:
+                sample_labels[:, :, 1] = 0.2
+                sample_labels[:, :, 2] = 0.8
 
             labels.append(sample_labels)
 
@@ -338,7 +342,7 @@ if __name__ == "__main__":
                         format="[%(asctime)s--%(name)s--%(module)s--%(levelname)s]: %(message)s")
 
     " fix me "
-    path_project = "D:\\DataSet_Preparation\\"
+    path_project = "E:\\mechanical_fault_diagnosis_dataset\\"
     sample_num, sample_len = 300, 6000
 
     # here label 1 0 0 means health

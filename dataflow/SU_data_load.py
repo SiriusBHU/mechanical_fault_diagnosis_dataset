@@ -114,7 +114,7 @@ class SoutheastBearingGear(object):
                 logging.warning("no original .npz files")
 
                 if not len(os.listdir(self.path_csv)):
-                    raise FileExistsError("no original .mat files")
+                    raise FileExistsError("no original .csv files")
 
                 logging.info("convert orignal .mat files to original .npz files")
                 self.origin_mat2npz_SU()
@@ -175,7 +175,7 @@ class SoutheastBearingGear(object):
         filenames = os.listdir(self.path_npz)
         filenames = [filenames[:10], filenames[10:]]
 
-        labels = [[1, 1, 2, 2, 0, 0, 2, 2, 3, 3],
+        labels = [[1, 1, 4, 4, 0, 0, 2, 2, 3, 3],
                   [1, 1, 0, 0, 2, 2, 3, 3, 4, 4]]
 
         return filenames, labels
@@ -209,16 +209,8 @@ class SoutheastBearingGear(object):
 
                 samples = ut.signal_split_as_samples(signal, sample_len, sample_num)
                 data[k].append(samples)
-
                 sample_labels = np.ones((sample_num, 1)) * filelabels[k][l]
-                if not k:
-                    sample_labels = ut.onehot_encoding(sample_labels, 4)
-
-                    # considering the combination of inner and outer fault
-                    if "comb" in file:
-                        sample_labels[:, 3] = 1
-                else:
-                    sample_labels = ut.onehot_encoding(sample_labels, 5)
+                sample_labels = ut.onehot_encoding(sample_labels, 5)
                 labels[k].append(sample_labels)
 
         data_bearing, data_gear = np.array(data[0]), np.array(data[1])
@@ -353,7 +345,7 @@ if __name__ == '__main__':
                         format="[%(asctime)s--%(name)s--%(module)s--%(levelname)s]: %(message)s")
 
     " fix me "
-    path_project = "D:\\DataSet_Preparation\\"
+    path_project = "E:\\mechanical_fault_diagnosis_dataset\\"
     sample_num, sample_len = 300, 6000
 
     sudata = SoutheastBearingGear(sample_num, sample_len, path_project=path_project)

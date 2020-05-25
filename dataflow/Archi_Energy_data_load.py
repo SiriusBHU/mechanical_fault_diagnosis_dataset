@@ -241,7 +241,7 @@ class ArchitectureEnergyData(object):
 if __name__ == "__main__":
 
     " fix me "
-    path_project = "D:\\DataSet_Preparation\\"
+    path_project = "E:\\mechanical_fault_diagnosis_dataset\\"
 
     ae_data = ArchitectureEnergyData(path_project=path_project,
                                      archi_batch_size=10, time_len=1440, total_num=3000)

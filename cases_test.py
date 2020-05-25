@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO,
 # set the location of this project
 # it can be a fixed place in your PC, so every time you set up a new project,
 # you can use the same data from this fixed place
-path_project = "D:\\DataSet_Preparation\\"
+path_project = "E:\\mechanical_fault_diagnosis_dataset\\"
 
 # Architecture Energy data
 ae_data = ArchitectureEnergyData(archi_batch_size=10, time_len=1440, total_num=3000, path_project=path_project)

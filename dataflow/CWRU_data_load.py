@@ -291,7 +291,7 @@ if __name__ == "__main__":
                         format="[%(asctime)s--%(name)s--%(module)s--%(levelname)s]: %(message)s")
 
     " fix me "
-    path_project = "D:\\DataSet_Preparation\\"
+    path_project = "E:\\mechanical_fault_diagnosis_dataset\\"
     sample_num, sample_len = 500, 2048
 
     cwdata = CaseWesternBearing(sample_num, sample_len, path_project=path_project)
