@@ -5,5 +5,7 @@ dataset/Diagnostics/FEMTO_data
 dataset/Diagnostics/heart_diagnosis
 dataset/Diagnostics/PU_data/
 dataset/Diagnostics/SU_data/
-
+dataset/Pregnostics/
+**/__pycache__
+/.idea
 
