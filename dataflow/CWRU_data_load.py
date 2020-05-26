@@ -28,7 +28,9 @@
 
 import logging
 import os
+import zipfile
 import numpy as np
+from six.moves import urllib
 import dataflow.util as ut
 
 
@@ -51,6 +53,8 @@ class CaseWesternBearing(object):
         # and then form transferring set
 
     """
+    # set processed dataset url
+    __url = "http://github.com/TJUSIRIUS/mechanical_fault_diagnosis_dataset/dataset/Diagnostics/CWRU_data/CWRU_data.zip"
 
     def __init__(self,
                  sample_num=None, sample_len=None,
@@ -95,7 +99,8 @@ class CaseWesternBearing(object):
             logging.warning("no formulated dataset")
 
             if not len(os.listdir(self.path_txt)):
-                raise FileExistsError("no original .text files")
+                logging.warning("no original .text files")
+                self._download_data()
 
             if not sample_num or not sample_len:
                 raise KeyError("keys [sample_num] and [sample_len] are needed for sampling")
@@ -107,6 +112,37 @@ class CaseWesternBearing(object):
 
         # prepare a interface to load testing-case-level dataset
         self.data, self.labels_wc, self.labels_fs = None, None, None
+
+    def _download_data(self):
+        """
+            this function aims to download the processed CWRU Dataset,
+            and unzip it
+            after unzipping, delete the compressed file
+
+            Note: the dataset is a set of processed *.txt files from original .mat files
+        """
+        # if no *.zip files, try to download
+        files = os.listdir(self.path_txt)
+        if "CWRU_data.zip" not in files:
+            logging.info("starting download processed CWRU bearing data")
+            url = self.__url
+            logging.info("--> downloading from %s" % url)
+            _data = urllib.request.urlopen(url)
+            _file = url.strip().split(os.altsep)[-1]
+            _file = os.path.join(self.path_txt, _file)
+            with open(_file, "wb") as f:
+                f.write(_data.read())
+            logging.info("successfully download processed CWRU bearing data package")
+
+        # now try to unzip the compressed *.zip files
+        # after unzip, delete the *.zip files
+        logging.info("unzip files ...")
+        _file = "CWRU_data.zip"
+        with zipfile.ZipFile(os.path.join(self.path_txt, _file), 'r') as _unzip_ref:
+            _unzip_ref.extractall(self.path_txt)
+        os.remove(_file)
+        logging.info("successfully unzip CWRU bearing data")
+        return
 
     def filename_CWRU(self):
 
