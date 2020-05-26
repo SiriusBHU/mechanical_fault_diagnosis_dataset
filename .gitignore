@@ -1,11 +1,22 @@
+
+# ignore data cache
 datacache/
+
+# ignore useless data
 dataset/Architecture_Energy
 dataset/Diagnostics/CU_data
 dataset/Diagnostics/FEMTO_data
 dataset/Diagnostics/heart_diagnosis
-dataset/Diagnostics/PU_data/
-dataset/Diagnostics/SU_data/
 dataset/Pregnostics/
+
+# ignore specific data files
+# data url will be given in code files
+dataset/Diagnostics/CWRU_data/*.txt
+dataset/Diagnostics/MFPT/*.txt
+dataset/Diagnostics/PU_data/**/*.mat
+dataset/Diagnostics/PU_data/**/*.pdf
+dataset/Diagnostics/SU_data/**/*.csv
+
 **/__pycache__
 /.idea
 
