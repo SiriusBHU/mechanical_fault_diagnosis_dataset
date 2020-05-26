@@ -11,8 +11,8 @@ dataset/Pregnostics/
 
 # ignore specific data files
 # data url will be given in code files
-dataset/Diagnostics/CWRU_data/*.txt
-dataset/Diagnostics/MFPT/*.txt
+dataset/Diagnostics/CWRU_data/
+dataset/Diagnostics/MFPT_data/
 dataset/Diagnostics/PU_data/**/*.mat
 dataset/Diagnostics/PU_data/**/*.pdf
 dataset/Diagnostics/SU_data/**/*.csv
