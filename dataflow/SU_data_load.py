@@ -65,6 +65,8 @@ class SoutheastBearingGear(object):
             # and then form transferring set
 
     """
+    # set dataset url
+    __url = "https://github.com/cathysiyu/Mechanical-datasets/archive/master.zip"
 
     def __init__(self,
                  sample_num=None, sample_len=None,
@@ -114,7 +116,11 @@ class SoutheastBearingGear(object):
                 logging.warning("no original .npz files")
 
                 if not len(os.listdir(self.path_csv)):
-                    raise FileExistsError("no original .csv files")
+                    raise FileExistsError("no original .csv files,\n"
+                                          "please download from url: %s\n,"
+                                          "unzip it add extract the 'bearingset' and 'gearset' "
+                                          "directories in dir: \n%s"
+                                          % (self.__url, self.path_csv))
 
                 logging.info("convert orignal .mat files to original .npz files")
                 self.origin_mat2npz_SU()

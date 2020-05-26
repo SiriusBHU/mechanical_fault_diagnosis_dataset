@@ -53,7 +53,8 @@ class MFPTBearing(object):
 
     """
     # set processed dataset url
-    __url = "http://github.com/TJUSIRIUS/mechanical_fault_diagnosis_dataset/dataset/Diagnostics/CWRU_data/MFPT.zip"
+    __url = "http://raw.githubusercontent.com/TJUSIRIUS/mechanical_fault_diagnosis_dataset/master/" \
+            "dataset/Diagnostics/MFPT_data/MFPT_data.zip"
 
     def __init__(self,
                  sample_num=None, sample_len=None,
@@ -96,7 +97,7 @@ class MFPTBearing(object):
             logging.warning("no formulated dataset")
 
             if not len(os.listdir(self.path_txt)):
-                raise logging.warning("no original .text files")
+                logging.warning("no original .text files")
             self._download_data()
 
             if not sample_num or not sample_len:
@@ -123,7 +124,7 @@ class MFPTBearing(object):
         if "MPFT_data.zip" not in files:
             logging.info("starting download processed MFPT bearing data")
             url = self.__url
-            logging.info("--> downloading from %s" % url)
+            logging.info("--> downloading from: \n%s" % url)
             _data = urllib.request.urlopen(url)
             _file = url.strip().split(os.altsep)[-1]
             _file = os.path.join(self.path_txt, _file)
@@ -135,7 +136,8 @@ class MFPTBearing(object):
         # after unzip, delete the *.zip files
         logging.info("unzip files ...")
         _file = "MFPT_data.zip"
-        with zipfile.ZipFile(os.path.join(self.path_txt, _file), 'r') as _unzip_ref:
+        _file = os.path.join(self.path_txt, _file)
+        with zipfile.ZipFile(_file, 'r') as _unzip_ref:
             _unzip_ref.extractall(self.path_txt)
         os.remove(_file)
         logging.info("successfully unzip MFPT bearing data")

@@ -67,6 +67,9 @@ class PaderbornBearing(object):
                  label 0 0 1 means outer fault
     """
 
+    # set dataset url
+    __url = "http://groups.uni-paderborn.de/kat/BearingDataCenter/"
+
     def __init__(self,
                  sample_num=None, sample_len=None,
                  path_project=None,
@@ -114,7 +117,10 @@ class PaderbornBearing(object):
                 logging.warning("no original .npz files")
 
                 if not len(os.listdir(self.path_mat)):
-                    raise FileExistsError("no original .mat files")
+                    raise FileExistsError("no original .mat files\n"
+                                          "please download the files from url: %s\n"
+                                          "and unzip it in the dir %s"
+                                          % (self.__url, self.path_mat))
 
                 logging.info("convert orignal .mat files to original .npz files")
                 self.origin_mat2npz_PU()

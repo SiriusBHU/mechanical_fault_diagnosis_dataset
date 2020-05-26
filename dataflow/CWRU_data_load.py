@@ -54,7 +54,8 @@ class CaseWesternBearing(object):
 
     """
     # set processed dataset url
-    __url = "http://github.com/TJUSIRIUS/mechanical_fault_diagnosis_dataset/dataset/Diagnostics/CWRU_data/CWRU_data.zip"
+    __url = "http://raw.githubusercontent.com/TJUSIRIUS/mechanical_fault_diagnosis_dataset/master/" \
+            "dataset/Diagnostics/CWRU_data/CWRU_data.zip"
 
     def __init__(self,
                  sample_num=None, sample_len=None,
@@ -126,7 +127,7 @@ class CaseWesternBearing(object):
         if "CWRU_data.zip" not in files:
             logging.info("starting download processed CWRU bearing data")
             url = self.__url
-            logging.info("--> downloading from %s" % url)
+            logging.info("--> downloading from: \n%s" % url)
             _data = urllib.request.urlopen(url)
             _file = url.strip().split(os.altsep)[-1]
             _file = os.path.join(self.path_txt, _file)
@@ -138,9 +139,10 @@ class CaseWesternBearing(object):
         # after unzip, delete the *.zip files
         logging.info("unzip files ...")
         _file = "CWRU_data.zip"
-        with zipfile.ZipFile(os.path.join(self.path_txt, _file), 'r') as _unzip_ref:
+        _file = os.path.join(self.path_txt, _file)
+        with zipfile.ZipFile(_file, 'r') as _unzip_ref:
             _unzip_ref.extractall(self.path_txt)
-        os.remove(_file)
+        os.remove(os.path.join(self.path_txt, _file))
         logging.info("successfully unzip CWRU bearing data")
         return
 
