@@ -96,7 +96,8 @@ class MFPTBearing(object):
             logging.warning("no formulated dataset")
 
             if not len(os.listdir(self.path_txt)):
-                raise FileExistsError("no original .text files")
+                raise logging.warning("no original .text files")
+            self._download_data()
 
             if not sample_num or not sample_len:
                 raise KeyError("keys [sample_num] and [sample_len] are needed for sampling")
